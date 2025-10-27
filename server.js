@@ -1,31 +1,30 @@
 /*******************************************************
- * CSE 340 - Assignment 1
- * Minimal Express server for CSE Motors home page
+ * CSE 340 – Assignment 1 (CSE Motors)
+ * Minimal Express server using EJS + static assets
  *******************************************************/
 const path = require("path");
-require("dotenv").config();
 const express = require("express");
+const dotenv = require("dotenv");
+
+dotenv.config();
 const app = express();
 
-/* Show we're editing the right file/folder */
-console.log("ENV check ->", { PORT: process.env.PORT, HOST: process.env.HOST });
-console.log("__dirname ->", __dirname);
-
-/* View engine + views folder */
+/* Views (EJS) */
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-/* Static assets */
+/* Static files */
 app.use(express.static(path.join(__dirname, "public")));
 
-/* HOME ROUTE (this fixes 'Cannot GET /') */
-app.get("/", (req, res) => {
-  res.render("index", { pageTitle: "CSE Motors | Home" });
-});
+/* Routes */
+const homeRoutes = require("./routes/index");   // <<< IMPORTANT
+app.use("/", homeRoutes);                       // <<< THIS HANDLES "/"
 
 /* Start server */
 const port = Number(process.env.PORT) || 5500;
 const host = process.env.HOST || "localhost";
+console.log("ENV check ->", { PORT: process.env.PORT, HOST: process.env.HOST });
+
 app.listen(port, host, () => {
   console.log(`app listening on http://${host}:${port}`);
 });
