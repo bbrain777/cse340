@@ -1,30 +1,31 @@
-/* ******************************************
- * This server.js file is the primary file of the 
- * application. It is used to control the project.
- *******************************************/
-/* ***********************
- * Require Statements
- *************************/
-const express = require("express")
-const env = require("dotenv").config()
-const app = express()
-const static = require("./routes/static")
+/*******************************************************
+ * CSE 340 - Assignment 1
+ * Minimal Express server for CSE Motors home page
+ *******************************************************/
+const path = require("path");
+require("dotenv").config();
+const express = require("express");
+const app = express();
 
-/* ***********************
- * Routes
- *************************/
-app.use(static)
+/* Show we're editing the right file/folder */
+console.log("ENV check ->", { PORT: process.env.PORT, HOST: process.env.HOST });
+console.log("__dirname ->", __dirname);
 
-/* ***********************
- * Local Server Information
- * Values from .env (environment) file
- *************************/
-const port = process.env.PORT
-const host = process.env.HOST
+/* View engine + views folder */
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
-/* ***********************
- * Log statement to confirm server operation
- *************************/
-app.listen(port, () => {
-  console.log(`app listening on ${host}:${port}`)
-})
+/* Static assets */
+app.use(express.static(path.join(__dirname, "public")));
+
+/* HOME ROUTE (this fixes 'Cannot GET /') */
+app.get("/", (req, res) => {
+  res.render("index", { pageTitle: "CSE Motors | Home" });
+});
+
+/* Start server */
+const port = Number(process.env.PORT) || 5500;
+const host = process.env.HOST || "localhost";
+app.listen(port, host, () => {
+  console.log(`app listening on http://${host}:${port}`);
+});
