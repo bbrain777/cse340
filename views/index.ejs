@@ -1,40 +1,58 @@
-<ul class="card-grid">
-  <li class="card">
-    <img src="/images/vehicles/hummer.jpg" alt="Black Hummer SUV">
-    <div class="card__body">
-      <h3>Hummer</h3>
-      <p class="price">£18,995</p>
-      <a class="btn btn--ghost" href="#">View details</a>
-    </div>
-  </li>
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('partials/head', { pageTitle: 'CSE Motors | Home' }) %>
+  <body>
+    <%- include('partials/header') %>
+    <%- include('partials/nav') %>
 
-  <li class="card">
-    <img src="/images/vehicles/wrangler.jpg" alt="Jeep Wrangler">
-    <div class="card__body">
-      <h3>Wrangler</h3>
-      <p class="price">£25,450</p>
-      <a class="btn btn--ghost" href="#">View details</a>
-    </div>
-  </li>
+    <main id="main" class="container" tabindex="-1">
+      <h1>Welcome to CSE Motors</h1>
+      <p>Reliable sedans, flexible SUVs, and hard-working trucks. All inspected and ready to drive.</p>
 
-  <li class="card">
-    <img src="/images/vehicles/fire-truck.jpg" alt="Red fire truck">
-    <div class="card__body">
-      <h3>Work Truck</h3>
-      <p class="price">£29,990</p>
-      <a class="btn btn--ghost" href="#">View details</a>
-    </div>
-  </li>
-</ul>
+      <section aria-labelledby="feat-heading" class="section">
+        <h2 id="feat-heading">Featured Vehicles</h2>
+        <ul class="card-grid">
+          <li class="card">
+            <img src="/images/vehicles/hummer.jpg" alt="Silver Hummer SUV">
+            <div class="card__body">
+              <h3>Hummer</h3>
+              <p class="price">£18,995</p>
+              <a class="btn btn--ghost" href="#">View details</a>
+            </div>
+          </li>
 
-<!-- Promo Section -->
-<section class="promo" aria-labelledby="promo-heading">
-  <h2 id="promo-heading">Autumn Offers</h2>
-  <div class="promo__wrap">
-    <img src="/images/vehicles/hummer.jpg" alt="Autumn promotion vehicles">
-    <div>
-      <p>Low APR financing and extended warranties on select models. Terms apply.</p>
-      <a class="btn btn--primary" href="#">Check eligibility</a>
-    </div>
-  </div>
-</section>
+          <li class="card">
+            <img src="/images/vehicles/wrangler.jpg" alt="Yellow Jeep Wrangler">
+            <div class="card__body">
+              <h3>Wrangler</h3>
+              <p class="price">£25,450</p>
+              <a class="btn btn--ghost" href="#">View details</a>
+            </div>
+          </li>
+
+          <li class="card">
+            <img src="/images/vehicles/fire-truck.jpg" alt="Red work truck">
+            <div class="card__body">
+              <h3>Work Truck</h3>
+              <p class="price">£29,990</p>
+              <a class="btn btn--ghost" href="#">View details</a>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="promo section" aria-labelledby="promo-heading">
+        <h2 id="promo-heading">Autumn Offers</h2>
+        <div class="promo__wrap">
+          <img src="/images/vehicles/hummer.jpg" alt="Autumn promotion vehicles">
+          <div>
+            <p>Low APR financing and extended warranties on select models. Terms and conditions apply.</p>
+            <a class="btn btn--primary" href="#">Check eligibility</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <%- include('partials/footer') %>
+  </body>
+</html>
