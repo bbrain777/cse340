@@ -1,58 +1,94 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <%- include('partials/head', { pageTitle: 'CSE Motors | Home' }) %>
+  <%- include('partials/head', { title: 'CSE Motors | Home' }) %>
   <body>
     <%- include('partials/header') %>
     <%- include('partials/nav') %>
 
-    <main id="main" class="container" tabindex="-1">
-      <h1>Welcome to CSE Motors</h1>
-      <p>Reliable sedans, flexible SUVs, and hard-working trucks. All inspected and ready to drive.</p>
+    <main id="main" class="site-main">
+      <!-- Checkerboard “frame” wrapper -->
+      <section class="content-frame" aria-label="Home content frame">
+        <div class="content-inner">
 
-      <section aria-labelledby="feat-heading" class="section">
-        <h2 id="feat-heading">Featured Vehicles</h2>
-        <ul class="card-grid">
-          <li class="card">
-            <img src="/images/vehicles/hummer.jpg" alt="Silver Hummer SUV">
-            <div class="card__body">
-              <h3>Hummer</h3>
-              <p class="price">£18,995</p>
-              <a class="btn btn--ghost" href="#">View details</a>
+          <!-- ===== Hero (two-column on large, single on mobile) ===== -->
+          <section class="hero" aria-labelledby="hero-heading">
+            <div class="hero__text">
+              <h1 id="hero-heading" class="hero__title">Welcome to CSE Motors!</h1>
+
+              <article class="panel">
+                <h2 class="panel__title">DMC Delorean</h2>
+                <ul class="panel__list">
+                  <li>3 Cup Holders</li>
+                  <li>Superman doors</li>
+                  <li>Fuzzy dice!</li>
+                </ul>
+                <a class="btn btn--primary" href="#" aria-label="Own a Delorean today">Own Today</a>
+                <p class="helper">* Safety First</p>
+              </article>
             </div>
-          </li>
 
-          <li class="card">
-            <img src="/images/vehicles/wrangler.jpg" alt="Yellow Jeep Wrangler">
-            <div class="card__body">
-              <h3>Wrangler</h3>
-              <p class="price">£25,450</p>
-              <a class="btn btn--ghost" href="#">View details</a>
-            </div>
-          </li>
+            <figure class="hero__media">
+              <img src="/images/vehicles/delorean.jpg" alt="Silver DMC Delorean" width="500" height="298" loading="eager">
+            </figure>
+          </section>
 
-          <li class="card">
-            <img src="/images/vehicles/fire-truck.jpg" alt="Red work truck">
-            <div class="card__body">
-              <h3>Work Truck</h3>
-              <p class="price">£29,990</p>
-              <a class="btn btn--ghost" href="#">View details</a>
-            </div>
-          </li>
-        </ul>
-      </section>
+          <!-- ===== Reviews ===== -->
+          <section class="reviews" aria-labelledby="reviews-heading">
+            <h2 id="reviews-heading" class="section-title">DMC Delorean Reviews</h2>
 
-      <section class="promo section" aria-labelledby="promo-heading">
-        <h2 id="promo-heading">Autumn Offers</h2>
-        <div class="promo__wrap">
-          <img src="/images/vehicles/hummer.jpg" alt="Autumn promotion vehicles">
-          <div>
-            <p>Low APR financing and extended warranties on select models. Terms and conditions apply.</p>
-            <a class="btn btn--primary" href="#">Check eligibility</a>
-          </div>
+            <ul class="review-grid" role="list">
+              <li class="review">
+                <img src="/images/site/small_check.png" alt="" class="review__icon" aria-hidden="true">
+                <p class="review__text">“This car makes the best time travel machine.”</p>
+              </li>
+              <li class="review">
+                <img src="/images/site/small_check.png" alt="" class="review__icon" aria-hidden="true">
+                <p class="review__text">“The flux capacitor really ties it together.”</p>
+              </li>
+              <li class="review">
+                <img src="/images/site/small_check.png" alt="" class="review__icon" aria-hidden="true">
+                <p class="review__text">“Where we’re going, we don’t need roads.”</p>
+              </li>
+            </ul>
+          </section>
+
+          <!-- ===== Upgrades ===== -->
+          <section class="upgrades" aria-labelledby="upgrades-heading">
+            <h2 id="upgrades-heading" class="section-title">Delorean Upgrades</h2>
+
+            <ul class="upgrade-grid" role="list">
+              <li class="upgrade">
+                <a class="upgrade__link" href="#">
+                  <img src="/images/upgrades/flame.jpg" alt="Flame decals" class="upgrade__img">
+                  <span class="upgrade__label">Flame Decals</span>
+                </a>
+              </li>
+              <li class="upgrade">
+                <a class="upgrade__link" href="#">
+                  <img src="/images/upgrades/flux-cap.png" alt="Flux capacitor" class="upgrade__img">
+                  <span class="upgrade__label">Flux Capacitor</span>
+                </a>
+              </li>
+              <li class="upgrade">
+                <a class="upgrade__link" href="#">
+                  <img src="/images/upgrades/hub-cap.jpg" alt="Shiny hub cap" class="upgrade__img">
+                  <span class="upgrade__label">Hub Caps</span>
+                </a>
+              </li>
+              <li class="upgrade">
+                <a class="upgrade__link" href="#">
+                  <img src="/images/upgrades/bumper_sticker.jpg" alt="Bumper sticker" class="upgrade__img">
+                  <span class="upgrade__label">Bumper Stickers</span>
+                </a>
+              </li>
+            </ul>
+          </section>
+
         </div>
       </section>
     </main>
 
     <%- include('partials/footer') %>
+    <script src="/js/script.js" defer></script>
   </body>
 </html>
