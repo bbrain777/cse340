@@ -1,30 +1,16 @@
-/*******************************************************
- * CSE 340 – Week 1 (CSE Motors)
- * Minimal Express server using EJS + static assets
- *******************************************************/
-const path = require("path");
-const express = require("express");
-const dotenv = require("dotenv");
-
-// Load .env
-dotenv.config();
+const path = require('path');
+const express = require('express');
 
 const app = express();
+const PORT = process.env.PORT || 5500;
 
-// Views (EJS)
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
-// Static files
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Routes (home)
-const homeRoutes = require("./routes/index");
-app.use("/", homeRoutes);
+app.get('/', (req, res) => res.render('index', { title: 'CSE Motors | Home' }));
 
-// Server
-const port = Number(process.env.PORT) || 5500;
-const host = process.env.HOST || "localhost";
-app.listen(port, host, () => {
-  console.log(`app listening on http://${host}:${port}`);
-});
+app.use((req, res) => res.status(404).send('Not found'));
+
+app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));

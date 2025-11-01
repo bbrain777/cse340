@@ -3,89 +3,87 @@
   <%- include('partials/head', { title: 'CSE Motors | Home' }) %>
   <body>
     <%- include('partials/header') %>
-    <%- include('partials/nav') %>
 
     <main id="main" class="site-main">
-      <!-- Checkerboard “frame” wrapper -->
-      <section class="content-frame" aria-label="Home content frame">
-        <div class="content-inner">
+      <div class="frame-wrap">
+        <section class="content-frame" aria-label="Home content frame">
+          <div class="content-inner">
 
-          <!-- ===== Hero (two-column on large, single on mobile) ===== -->
-          <section class="hero" aria-labelledby="hero-heading">
-            <div class="hero__text">
-              <h1 id="hero-heading" class="hero__title">Welcome to CSE Motors!</h1>
+            <!-- HERO -->
+            <section class="hero" aria-labelledby="hero-heading">
+              <div class="hero__text">
+                <h2 id="hero-heading" class="hero__title">Welcome to CSE Motors!</h2>
+              </div>
 
-              <article class="panel">
-                <h2 class="panel__title">DMC Delorean</h2>
+              <figure class="hero__media">
+                <img src="/images/vehicles/delorean.jpg"
+                     alt="Silver DMC Delorean"
+                     width="600" height="360"
+                     loading="eager">
+              </figure>
+
+              <!-- Overlapping spec card (desktop) -->
+              <article class="panel" aria-label="DMC Delorean specs">
+                <h3 class="panel__title">DMC Delorean</h3>
                 <ul class="panel__list">
-                  <li>3 Cup Holders</li>
+                  <li>3 Cup holders</li>
                   <li>Superman doors</li>
                   <li>Fuzzy dice!</li>
                 </ul>
                 <a class="btn btn--primary" href="#" aria-label="Own a Delorean today">Own Today</a>
                 <p class="helper">* Safety First</p>
               </article>
-            </div>
+            </section>
 
-            <figure class="hero__media">
-              <img src="/images/vehicles/delorean.jpg" alt="Silver DMC Delorean" width="500" height="298" loading="eager">
-            </figure>
-          </section>
+            <!-- BELOW HERO: Upgrades (left) + Reviews (right) -->
+            <section class="content-bottom" aria-label="Upgrades and reviews">
+              <!-- Upgrades -->
+              <section class="upgrades" aria-labelledby="upgrades-heading">
+                <h3 id="upgrades-heading" class="section-title">Delorean Upgrades</h3>
+                <ul class="upgrade-grid" role="list">
+                  <li class="upgrade">
+                    <a class="upgrade__link" href="#">
+                      <img class="upgrade__img" src="/images/upgrades/flux-cap.png" alt="Flux Capacitor">
+                      <span class="upgrade__label">Flux Capacitor</span>
+                    </a>
+                  </li>
+                  <li class="upgrade">
+                    <a class="upgrade__link" href="#">
+                      <img class="upgrade__img" src="/images/upgrades/flame.jpg" alt="Flame Decals">
+                      <span class="upgrade__label">Flame Decals</span>
+                    </a>
+                  </li>
+                  <li class="upgrade">
+                    <a class="upgrade__link" href="#">
+                      <img class="upgrade__img" src="/images/upgrades/bumper_sticker.jpg" alt="Bumper Stickers">
+                      <span class="upgrade__label">Bumper Stickers</span>
+                    </a>
+                  </li>
+                  <li class="upgrade">
+                    <a class="upgrade__link" href="#">
+                      <img class="upgrade__img" src="/images/upgrades/hub-cap.jpg" alt="Hub Caps">
+                      <span class="upgrade__label">Hub Caps</span>
+                    </a>
+                  </li>
+                </ul>
+              </section>
 
-          <!-- ===== Reviews ===== -->
-          <section class="reviews" aria-labelledby="reviews-heading">
-            <h2 id="reviews-heading" class="section-title">DMC Delorean Reviews</h2>
+              <!-- Reviews -->
+              <section class="reviews" aria-labelledby="reviews-heading">
+                <h3 id="reviews-heading" class="section-title">DMC Delorean Reviews</h3>
+                <ul class="review-list" role="list">
+                  <li>“So fast it’s almost like traveling in time.” <small>(4/5)</small></li>
+                  <li>“Coolest ride on the road.” <small>(4/5)</small></li>
+                  <li>“I’m feeling McFly!” <small>(5/5)</small></li>
+                  <li>“The most futuristic ride of our day.” <small>(4.5/5)</small></li>
+                  <li>“80’s livin’ and I love it!” <small>(5/5)</small></li>
+                </ul>
+              </section>
+            </section>
 
-            <ul class="review-grid" role="list">
-              <li class="review">
-                <img src="/images/site/small_check.png" alt="" class="review__icon" aria-hidden="true">
-                <p class="review__text">“This car makes the best time travel machine.”</p>
-              </li>
-              <li class="review">
-                <img src="/images/site/small_check.png" alt="" class="review__icon" aria-hidden="true">
-                <p class="review__text">“The flux capacitor really ties it together.”</p>
-              </li>
-              <li class="review">
-                <img src="/images/site/small_check.png" alt="" class="review__icon" aria-hidden="true">
-                <p class="review__text">“Where we’re going, we don’t need roads.”</p>
-              </li>
-            </ul>
-          </section>
-
-          <!-- ===== Upgrades ===== -->
-          <section class="upgrades" aria-labelledby="upgrades-heading">
-            <h2 id="upgrades-heading" class="section-title">Delorean Upgrades</h2>
-
-            <ul class="upgrade-grid" role="list">
-              <li class="upgrade">
-                <a class="upgrade__link" href="#">
-                  <img src="/images/upgrades/flame.jpg" alt="Flame decals" class="upgrade__img">
-                  <span class="upgrade__label">Flame Decals</span>
-                </a>
-              </li>
-              <li class="upgrade">
-                <a class="upgrade__link" href="#">
-                  <img src="/images/upgrades/flux-cap.png" alt="Flux capacitor" class="upgrade__img">
-                  <span class="upgrade__label">Flux Capacitor</span>
-                </a>
-              </li>
-              <li class="upgrade">
-                <a class="upgrade__link" href="#">
-                  <img src="/images/upgrades/hub-cap.jpg" alt="Shiny hub cap" class="upgrade__img">
-                  <span class="upgrade__label">Hub Caps</span>
-                </a>
-              </li>
-              <li class="upgrade">
-                <a class="upgrade__link" href="#">
-                  <img src="/images/upgrades/bumper_sticker.jpg" alt="Bumper sticker" class="upgrade__img">
-                  <span class="upgrade__label">Bumper Stickers</span>
-                </a>
-              </li>
-            </ul>
-          </section>
-
-        </div>
-      </section>
+          </div>
+        </section>
+      </div>
     </main>
 
     <%- include('partials/footer') %>
