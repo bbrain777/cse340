@@ -1,0 +1,31 @@
+#inv-display {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#inv-display li {
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+#inv-display img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+#inv-display .namePrice {
+  padding: 0.75rem 1rem;
+  text-align: center;
+}
+#inv-display h2 {
+  font-size: 1rem;
+  margin: 0.25rem 0 0.5rem;
+}
+#inv-display span {
+  font-weight: 700;
+}
