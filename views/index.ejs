@@ -1,92 +1,85 @@
 <!doctype html>
 <html lang="en">
-  <%- include('partials/head', { title: 'CSE Motors | Home' }) %>
+  <%- include("partials/head", { title }) %>
   <body>
-    <%- include('partials/header') %>
+    <%- include("partials/header") %>
 
     <main id="main" class="site-main">
-      <div class="frame-wrap">
-        <section class="content-frame" aria-label="Home content frame">
-          <div class="content-inner">
+      <div class="container">
 
-            <!-- HERO -->
-            <section class="hero" aria-labelledby="hero-heading">
-              <div class="hero__text">
-                <h2 id="hero-heading" class="hero__title">Welcome to CSE Motors!</h2>
-              </div>
+        <!-- Big framed home card (like original Delorean layout) -->
+        <section class="home-frame">
 
-              <figure class="hero__media">
-                <img src="/images/vehicles/delorean.jpg"
-                     alt="Silver DMC Delorean"
-                     width="600" height="360"
-                     loading="eager">
-              </figure>
+          <!-- HERO ROW: title + floating card + car image -->
+          <section class="home-hero">
+            <div class="home-hero-left">
+              <h2 class="home-welcome">Welcome to CSE Motors!</h2>
+            </div>
 
-              <!-- Overlapping spec card (desktop) -->
-              <article class="panel" aria-label="DMC Delorean specs">
-                <h3 class="panel__title">DMC Delorean</h3>
-                <ul class="panel__list">
-                  <li>3 Cup holders</li>
-                  <li>Superman doors</li>
-                  <li>Fuzzy dice!</li>
-                </ul>
-                <a class="btn btn--primary" href="#" aria-label="Own a Delorean today">Own Today</a>
-                <p class="helper">* Safety First</p>
-              </article>
+            <!-- Floating spec card -->
+            <div class="home-hero-card">
+              <p class="eyebrow">Lamborghini Aventador</p>
+              <ul>
+                <li>Legendary V12 engine with breathtaking power</li>
+                <li>0–60 mph acceleration in just 2.9 seconds</li>
+                <li>Advanced aerodynamics and carbon-fiber body</li>
+                <li>Iconic scissor doors + premium luxury interior</li>
+              </ul>
+              <button class="btn-primary" type="button">Book a Test Drive</button>
+              <p class="safety-note">* Always obey local speed limits.</p>
+            </div>
+
+            <!-- Hero image on the right -->
+            <div class="home-hero-image">
+              <img
+                src="/images/vehicles/adventador.jpg"
+                alt="Lamborghini Aventador in a showroom"
+              />
+            </div>
+          </section>
+
+          <!-- LOWER ROW: Upgrades + Reviews, still inside the frame -->
+          <section class="home-lower">
+            <!-- Upgrades -->
+            <section class="home-upgrades">
+              <h2>Aventador Upgrades</h2>
+              <ul class="upgrades-grid">
+                <li class="upgrade-card">
+                  <img src="/images/upgrades/flux-cap.png" alt="Performance tuning" />
+                  <span>Performance ECU Tune</span>
+                </li>
+                <li class="upgrade-card">
+                  <img src="/images/upgrades/flame.jpg" alt="Sport exhaust" />
+                  <span>Sport Exhaust System</span>
+                </li>
+                <li class="upgrade-card">
+                  <img src="/images/upgrades/bumper_sticker.jpg" alt="Custom interior" />
+                  <span>Custom Alcantara Interior</span>
+                </li>
+                <li class="upgrade-card">
+                  <img src="/images/upgrades/hub-cap.jpg" alt="Forged alloy wheels" />
+                  <span>Forged Alloy Wheels</span>
+                </li>
+              </ul>
             </section>
 
-            <!-- BELOW HERO: Upgrades (left) + Reviews (right) -->
-            <section class="content-bottom" aria-label="Upgrades and reviews">
-              <!-- Upgrades -->
-              <section class="upgrades" aria-labelledby="upgrades-heading">
-                <h3 id="upgrades-heading" class="section-title">Delorean Upgrades</h3>
-                <ul class="upgrade-grid" role="list">
-                  <li class="upgrade">
-                    <a class="upgrade__link" href="#">
-                      <img class="upgrade__img" src="/images/upgrades/flux-cap.png" alt="Flux Capacitor">
-                      <span class="upgrade__label">Flux Capacitor</span>
-                    </a>
-                  </li>
-                  <li class="upgrade">
-                    <a class="upgrade__link" href="#">
-                      <img class="upgrade__img" src="/images/upgrades/flame.jpg" alt="Flame Decals">
-                      <span class="upgrade__label">Flame Decals</span>
-                    </a>
-                  </li>
-                  <li class="upgrade">
-                    <a class="upgrade__link" href="#">
-                      <img class="upgrade__img" src="/images/upgrades/bumper_sticker.jpg" alt="Bumper Stickers">
-                      <span class="upgrade__label">Bumper Stickers</span>
-                    </a>
-                  </li>
-                  <li class="upgrade">
-                    <a class="upgrade__link" href="#">
-                      <img class="upgrade__img" src="/images/upgrades/hub-cap.jpg" alt="Hub Caps">
-                      <span class="upgrade__label">Hub Caps</span>
-                    </a>
-                  </li>
-                </ul>
-              </section>
-
-              <!-- Reviews -->
-              <section class="reviews" aria-labelledby="reviews-heading">
-                <h3 id="reviews-heading" class="section-title">DMC Delorean Reviews</h3>
-                <ul class="review-list" role="list">
-                  <li>“So fast it’s almost like traveling in time.” <small>(4/5)</small></li>
-                  <li>“Coolest ride on the road.” <small>(4/5)</small></li>
-                  <li>“I’m feeling McFly!” <small>(5/5)</small></li>
-                  <li>“The most futuristic ride of our day.” <small>(4.5/5)</small></li>
-                  <li>“80’s livin’ and I love it!” <small>(5/5)</small></li>
-                </ul>
-              </section>
+            <!-- Reviews -->
+            <section class="home-reviews">
+              <h2>Lamborghini Aventador Reviews</h2>
+              <ul>
+                <li>“Explosive acceleration and unforgettable sound.” (5/5)</li>
+                <li>“The V12 roar is pure theatre.” (5/5)</li>
+                <li>“Unmatched road presence and style.” (4.5/5)</li>
+                <li>“Feels like a street-legal race car.” (4.5/5)</li>
+                <li>“A dream supercar worth every moment.” (5/5)</li>
+              </ul>
             </section>
-
-          </div>
+          </section>
         </section>
+        <!-- /home-frame -->
       </div>
     </main>
 
-    <%- include('partials/footer') %>
-    <script src="/js/script.js" defer></script>
+    <%- include("partials/footer") %>
   </body>
 </html>

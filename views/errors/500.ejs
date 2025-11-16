@@ -5,8 +5,12 @@
     <%- include("../partials/header") %>
     <main id="main" class="site-main">
       <div class="container">
-        <h1><%= title %></h1>
-        <%- grid %>
+        <section class="error error--500">
+          <h1>Something went wrong.</h1>
+          <p><%= message %></p>
+          <p>If this keeps happening, please contact the site administrator.</p>
+          <p><a href="/">Return to the home page</a></p>
+        </section>
       </div>
     </main>
     <%- include("../partials/footer") %>

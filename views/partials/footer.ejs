@@ -1,16 +1,8 @@
 <footer class="site-footer">
   <div class="container footer__inner">
-    <small>© 2023, CSE 340 App</small>
-    <small>All rights reserved.</small>
-  </div>
-
-  <!-- Required for Week 3: intentional 500 error link -->
-  <div class="container" style="margin-top: .75rem;">
-    <small>
-      <a href="/cause-error" style="color: var(--accent);">
-        Test error handling (500 error)
-      </a>
+    <small>© <%= new Date().getFullYear() %> CSE Motors. All rights reserved.</small>
+    <small class="footer__error-link">
+      <a href="/cause-error">Test error handling (500 error)</a>
     </small>
   </div>
 </footer>
-

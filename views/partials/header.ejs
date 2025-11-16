@@ -1,7 +1,11 @@
 <header class="site-header">
-  <div class="container">
-    <a class="logo" href="/">CSE Motors</a>
-    <nav aria-label="Primary"><%- include('navigation') %></nav>
+  <div class="container header__top">
+    <a href="/" class="brand">CSE Motors</a>
+    <p class="utility">Quality vehicles · Simple pricing</p>
   </div>
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="container">
+      <%- typeof nav !== 'undefined' ? nav : '' %>
+    </div>
+  </nav>
 </header>
-
