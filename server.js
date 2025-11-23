@@ -1,60 +1,77 @@
 // server.js
+require("dotenv").config()
 const path = require("path")
 const express = require("express")
-require("dotenv").config()
-
-const baseRoute = require("./routes/index")
-const inventoryRoute = require("./routes/inventoryRoute")
+const session = require("express-session")
+const flash = require("connect-flash")
 
 const app = express()
-const PORT = process.env.PORT || 5501
 
-// View engine
+// Controllers & utilities
+const baseController = require("./controllers/baseController")
+const invRoute = require("./routes/inventoryRoute")
+const utilities = require("./utilities")
+
+/* ---------- View engine ---------- */
 app.set("view engine", "ejs")
 app.set("views", path.join(__dirname, "views"))
 
-// Static assets
+/* ---------- Static files ---------- */
 app.use(express.static(path.join(__dirname, "public")))
 
-// Parse form data
+/* ---------- Body parsing ---------- */
+app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-// Inject nav and basic locals for every view
-const utilities = require("./utilities")
+/* ---------- Sessions & Flash Messages ---------- */
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "supersecret-session-key",
+    resave: false,
+    saveUninitialized: true,
+  })
+)
+
+app.use(flash())
+
+// Make flash message and nav available to EVERY view
 app.use(async (req, res, next) => {
-  try {
-    res.locals.nav = await utilities.getNav()
-    res.locals.errors = null
-    next()
-  } catch (err) {
-    next(err)
-  }
+  res.locals.notice = req.flash("notice") // flash messages (array or string)
+  res.locals.nav = await utilities.getNav() // navigation bar
+  next()
 })
 
-// Routes
-app.use("/", baseRoute)
-app.use("/inv", inventoryRoute)
+/* ---------- Routes ---------- */
 
-// 404 handler
-app.use((req, res, next) => {
-  res.status(404)
-  res.render("errors/404", {
-    title: "404 | Page Not Found"
+// Home route
+app.get("/", utilities.handleErrors(baseController.buildHome))
+
+// Inventory routes
+app.use("/inv", invRoute)
+
+/* ---------- 404 Not Found ---------- */
+app.use(async (req, res, next) => {
+  const nav = await utilities.getNav()
+  res.status(404).render("errors/error", {
+    title: "Page Not Found",
+    message: "Sorry, we couldn't find the page you requested.",
+    nav,
   })
 })
 
-// Error handler middleware
-app.use((err, req, res, next) => {
-  console.error("Global error handler:", err)
-  const status = err.status || 500
-  res.status(status)
-  res.render("errors/500", {
-    title: status === 500 ? "Server Error" : `${status} Error`,
-    message: err.message || "Something went wrong. Please try again."
+/* ---------- Global Error Handler ---------- */
+app.use(async (err, req, res, next) => {
+  console.error(err.stack)
+  const nav = await utilities.getNav()
+  res.status(err.status || 500).render("errors/error", {
+    title: err.status === 404 ? "Not Found" : "Server Error",
+    message: err.message || "An unexpected error occurred.",
+    nav,
   })
 })
 
+/* ---------- Start Server ---------- */
+const PORT = process.env.PORT || 5501
 app.listen(PORT, () => {
-  const env = process.env.NODE_ENV || "development"
-  console.log(`Server running in ${env} mode on http://localhost:${PORT}`)
+  console.log(`CSE Motors running at http://localhost:${PORT}`)
 })

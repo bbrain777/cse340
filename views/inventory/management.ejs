@@ -1,0 +1,14 @@
+<main id="management-view" class="inv-management">
+  <h1>Inventory Management</h1>
+
+  <% if (locals.notice) { %>
+    <div class="notice"><%= notice %></div>
+  <% } %>
+
+  <p>Use the options below to manage vehicle classifications and inventory.</p>
+
+  <ul class="management-links">
+    <li><a href="/inv/add-classification">Add New Classification</a></li>
+    <li><a href="/inv/add">Add New Vehicle</a></li>
+  </ul>
+</main>

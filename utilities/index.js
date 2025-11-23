@@ -1,6 +1,9 @@
 // utilities/index.js
 const { getClassifications } = require("../models/inventory-model")
 
+/**
+ * Build the site navigation bar
+ */
 async function getNav() {
   const classifications = await getClassifications()
   const list = classifications
@@ -18,6 +21,9 @@ async function getNav() {
   `
 }
 
+/**
+ * Build the grid of vehicles for a classification
+ */
 function buildClassificationGrid(data) {
   if (!data || data.length === 0) {
     return "<p class='notice'>Sorry, no matching vehicles were found.</p>"
@@ -45,6 +51,9 @@ function buildClassificationGrid(data) {
   return `<ul id="inv-display">${items}</ul>`
 }
 
+/**
+ * Build the single vehicle detail HTML
+ */
 function buildVehicleDetail(vehicle) {
   if (!vehicle) {
     return "<p class='notice'>Vehicle not found.</p>"
@@ -76,8 +85,43 @@ function buildVehicleDetail(vehicle) {
   `
 }
 
+/**
+ * Wrap async route handlers so errors go to the error middleware
+ */
+function handleErrors(fn) {
+  return function (req, res, next) {
+    Promise.resolve(fn(req, res, next)).catch(next)
+  }
+}
+
+/**
+ * Build the classification <select> list for the forms
+ */
+async function buildClassificationList(classification_id = null) {
+  const data = await getClassifications()
+  let classificationList =
+    '<select name="classification_id" id="classificationList" required>'
+  classificationList += "<option value=''>Choose a Classification</option>"
+
+  data.forEach((row) => {
+    classificationList += `<option value="${row.classification_id}"`
+    if (
+      classification_id != null &&
+      row.classification_id == classification_id
+    ) {
+      classificationList += " selected"
+    }
+    classificationList += `>${row.classification_name}</option>`
+  })
+
+  classificationList += "</select>"
+  return classificationList
+}
+
 module.exports = {
   getNav,
   buildClassificationGrid,
-  buildVehicleDetail
+  buildVehicleDetail,
+  handleErrors,
+  buildClassificationList,
 }

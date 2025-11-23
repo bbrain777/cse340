@@ -7,13 +7,21 @@
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
-  "keywords": ["cse340", "express", "mvc", "vehicle-detail"],
+  "keywords": [
+    "cse340",
+    "express",
+    "mvc",
+    "vehicle-detail"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "connect-flash": "^0.1.1",
     "dotenv": "^16.4.0",
     "ejs": "^3.1.10",
     "express": "^4.21.0",
+    "express-session": "^1.18.2",
+    "express-validator": "^7.3.1",
     "pg": "^8.13.0"
   },
   "devDependencies": {
