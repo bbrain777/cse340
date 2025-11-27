@@ -1,0 +1,25 @@
+<%- include('../partials/header') %>
+
+<main>
+  <h1>Account Management</h1>
+
+  <%- include('../partials/flash') %>
+
+  <p>You're logged in.</p>
+
+  <% if (typeof accountData !== "undefined" && accountData) { %>
+    <p>
+      Welcome,
+      <strong><%= accountData.account_firstname %> <%= accountData.account_lastname %></strong>
+      (<%= accountData.account_email %>)
+    </p>
+
+    <p>
+      <a href="/account/edit/<%= accountData.account_id %>">
+        Update Account Information
+      </a>
+    </p>
+  <% } %>
+</main>
+
+<%- include('../partials/footer') %>

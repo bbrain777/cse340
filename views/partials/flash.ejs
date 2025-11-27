@@ -1,0 +1,7 @@
+<% if (locals.notice && notice.length > 0) { %>
+  <div class="notice">
+    <% notice.forEach(function (msg) { %>
+      <p><%= msg %></p>
+    <% }) %>
+  </div>
+<% } %>
