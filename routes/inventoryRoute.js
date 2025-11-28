@@ -1,55 +1,70 @@
 // routes/inventoryRoute.js
+const express = require("express")
+const router = new express.Router()
 
-const invValidate = require("../utilities/inventory-validation");
-const express = require("express");
-const router = express.Router();
-const utilities = require("../utilities");
-const invController = require("../controllers/invController");
+const invValidate = require("../utilities/inventory-validation")
+const utilities = require("../utilities")
+const invController = require("../controllers/invController")
 
-// Inventory Management view
+/* ============================================================
+   Inventory Home View 
+   ============================================================ */
 router.get(
   "/",
   utilities.handleErrors(invController.buildManagementView)
-);
+)
 
-// Deliver classification inventory
+/* ============================================================
+   Classification Inventory View 
+   ============================================================ */
 router.get(
   "/type/:classificationId",
   utilities.handleErrors(invController.buildByClassificationId)
-);
+)
 
-// Deliver vehicle details
+/* ============================================================
+   Vehicle Detail View
+   ============================================================ */
 router.get(
   "/detail/:invId",
   utilities.handleErrors(invController.buildByInvId)
-);
+)
 
-// Add Classification view
+/* ============================================================
+   Add Classification View (GET)
+   ============================================================ */
 router.get(
   "/add-classification",
   utilities.handleErrors(invController.buildAddClassification)
-);
+)
 
-// Process Add Classification
+/* ============================================================
+   Process Add Classification (POST)
+   REQUIRED for Week 4 Server-side validation
+   ============================================================ */
 router.post(
   "/add-classification",
-  invValidate.classificationRules(),
-  invValidate.checkClassificationData,
+  invValidate.classificationRules(),       // <-- VALIDATION RULES
+  invValidate.checkClassificationData,     // <-- VALIDATION CHECK
   utilities.handleErrors(invController.addClassification)
-);
+)
 
-// Add Inventory form view
+/* ============================================================
+   Add Inventory View (GET)
+   ============================================================ */
 router.get(
   "/add",
   utilities.handleErrors(invController.buildAddInventory)
-);
+)
 
-// Process Add Inventory form
+/* ============================================================
+   Process Add Inventory (POST)
+   ============================================================ */
 router.post(
   "/add",
   invValidate.inventoryRules(),
   invValidate.checkInventoryData,
   utilities.handleErrors(invController.addInventory)
-);
+)
 
-module.exports = router;
+module.exports = router
