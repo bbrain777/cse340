@@ -1,19 +1,62 @@
-<%- include("../partials/header") %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- This partial should contain your <title>, CSS links, meta tags, etc. -->
+    <%- include('../partials/head') %>
+  </head>
+  <body>
+    <!-- Site header / nav -->
+    <%- include('../partials/header') %>
 
-<main>
-  <h1>Login</h1>
+    <main class="container">
+      <section class="auth-page">
+        <h1>Login</h1>
+        <p>Please log in to continue.</p>
 
-  <%- include("../partials/flash") %>
+        <!-- Flash / controller message -->
+        <% if (typeof message !== 'undefined' && message) { %>
+          <div class="notice"><%= message %></div>
+        <% } %>
 
-  <form id="loginForm" action="/account/login" method="post">
-    <label for="account_email">Email</label>
-    <input type="email" id="account_email" name="account_email" required>
+        <!-- Validation errors -->
+        <% if (Array.isArray(errors) && errors.length > 0) { %>
+          <section class="notice">
+            <h2>Please fix the following errors:</h2>
+            <ul>
+              <% errors.forEach(error => { %>
+                <li><%= error.msg %></li>
+              <% }) %>
+            </ul>
+          </section>
+        <% } %>
 
-    <label for="account_password">Password</label>
-    <input type="password" id="account_password" name="account_password" required>
+        <form action="/account/login" method="post" class="auth-form">
+          <label for="account_email">Email</label>
+          <input
+            type="email"
+            id="account_email"
+            name="account_email"
+            required
+            autocomplete="email"
+            value="<%= typeof account_email !== 'undefined' ? account_email : '' %>"
+          />
 
-    <button type="submit">Login</button>
-  </form>
-</main>
+          <label for="account_password">Password</label>
+          <input
+            type="password"
+            id="account_password"
+            name="account_password"
+            required
+            minlength="8"
+            autocomplete="current-password"
+          />
 
-<%- include("../partials/footer") %>
+          <button type="submit" class="btn-primary">Login</button>
+        </form>
+      </section>
+    </main>
+
+    <!-- Site footer -->
+    <%- include('../partials/footer') %>
+  </body>
+</html>

@@ -1,9 +1,19 @@
-<%- include("../partials/head") %>
-<%- include("../partials/header") %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= title || "Server Error" %> | CSE Motors</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <!-- Site header -->
+    <%- include("../partials/header") %>
 
-<main class="container">
-  <h1><%= title %></h1>
-  <p><%= message %></p>
-</main>
+    <main class="container">
+      <h1><%= title || "Server Error" %></h1>
+      <p><%= message || "An unexpected error occurred. Please try again later." %></p>
+    </main>
 
-<%- include("../partials/footer") %>
+    <%- include("../partials/footer") %>
+  </body>
+</html>

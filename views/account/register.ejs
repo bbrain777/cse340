@@ -1,8 +1,71 @@
-<%- include("../partials/header") %>
+<%- include('../partials/header') %>
 
-<main>
-  <h1>Register</h1>
-  <p>Registration form will go here (from Week 4).</p>
+<main id="main-content">
+  <section class="auth-panel">
+    <h1>Register</h1>
+    <p>Please fill out the form below to create an account.</p>
+
+    <!-- Validation errors (from account-validation.js) -->
+    <% if (typeof errors !== "undefined" && errors && errors.length > 0) { %>
+      <section class="notice">
+        <h2>Please fix the following errors:</h2>
+        <ul>
+          <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+          <% }) %>
+        </ul>
+      </section>
+    <% } %>
+
+    <form class="account-form" action="/account/register" method="post">
+      <fieldset>
+        <legend>Account Information</legend>
+
+        <label for="account_firstname">First Name</label>
+        <input
+          type="text"
+          id="account_firstname"
+          name="account_firstname"
+          required
+          value="<%= typeof account_firstname !== 'undefined' ? account_firstname : '' %>"
+        >
+
+        <label for="account_lastname">Last Name</label>
+        <input
+          type="text"
+          id="account_lastname"
+          name="account_lastname"
+          required
+          value="<%= typeof account_lastname !== 'undefined' ? account_lastname : '' %>"
+        >
+
+        <label for="account_email">Email</label>
+        <input
+          type="email"
+          id="account_email"
+          name="account_email"
+          required
+          value="<%= typeof account_email !== 'undefined' ? account_email : '' %>"
+        >
+
+        <label for="account_password">
+          Password
+          <span class="field-hint">
+            (At least 12 characters, with upper &amp; lower case letters,
+            a number, and a special character)
+          </span>
+        </label>
+        <input
+          type="password"
+          id="account_password"
+          name="account_password"
+          required
+        >
+
+        <button type="submit" class="btn-primary">Create Account</button>
+      </fieldset>
+    </form>
+  </section>
 </main>
 
-<%- include("../partials/footer") %>
+<%- include('../partials/footer') %>

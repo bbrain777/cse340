@@ -1,70 +1,95 @@
 // routes/inventoryRoute.js
 const express = require("express")
-const router = new express.Router()
+const router = express.Router()
 
-const invValidate = require("../utilities/inventory-validation")
-const utilities = require("../utilities")
+const utilities = require("../utilities/")
 const invController = require("../controllers/invController")
+const invValidate = require("../utilities/inventory-validation")
+const auth = require("../utilities/auth")
 
-/* ============================================================
-   Inventory Home View 
-   ============================================================ */
-router.get(
-  "/",
-  utilities.handleErrors(invController.buildManagementView)
-)
+/* ---------- PUBLIC ROUTES ---------- */
 
-/* ============================================================
-   Classification Inventory View 
-   ============================================================ */
+// Classification list
 router.get(
   "/type/:classificationId",
   utilities.handleErrors(invController.buildByClassificationId)
 )
 
-/* ============================================================
-   Vehicle Detail View
-   ============================================================ */
+// Vehicle detail
 router.get(
   "/detail/:invId",
   utilities.handleErrors(invController.buildByInvId)
 )
 
-/* ============================================================
-   Add Classification View (GET)
-   ============================================================ */
+/* ---------- ADMIN / EMPLOYEE ROUTES ---------- */
+
+// Inventory management home (table)
+router.get(
+  "/",
+  auth.checkEmployee,
+  utilities.handleErrors(invController.buildManagementView)
+)
+
+// Add classification view
 router.get(
   "/add-classification",
+  auth.checkEmployee,
   utilities.handleErrors(invController.buildAddClassification)
 )
 
-/* ============================================================
-   Process Add Classification (POST)
-   REQUIRED for Week 4 Server-side validation
-   ============================================================ */
+// Process add classification
 router.post(
   "/add-classification",
-  invValidate.classificationRules(),       // <-- VALIDATION RULES
-  invValidate.checkClassificationData,     // <-- VALIDATION CHECK
+  auth.checkEmployee,
+  invValidate.classificationRules(),
+  invValidate.checkClassificationData,
   utilities.handleErrors(invController.addClassification)
 )
 
-/* ============================================================
-   Add Inventory View (GET)
-   ============================================================ */
+// Add inventory view
 router.get(
   "/add",
+  auth.checkEmployee,
   utilities.handleErrors(invController.buildAddInventory)
 )
 
-/* ============================================================
-   Process Add Inventory (POST)
-   ============================================================ */
+// Process add inventory
 router.post(
   "/add",
+  auth.checkEmployee,
   invValidate.inventoryRules(),
   invValidate.checkInventoryData,
   utilities.handleErrors(invController.addInventory)
+)
+
+// Edit inventory view
+router.get(
+  "/edit/:inv_id",
+  auth.checkEmployee,
+  utilities.handleErrors(invController.editInventoryView)
+)
+
+// Process edit inventory (UPDATE)
+router.post(
+  "/update/",
+  auth.checkEmployee,
+  invValidate.inventoryRules(),
+  invValidate.checkInventoryData,   // ✅ use existing checker
+  utilities.handleErrors(invController.updateInventory)
+)
+
+// Delete confirmation view
+router.get(
+  "/delete/:inv_id",
+  auth.checkEmployee,
+  utilities.handleErrors(invController.buildDeleteConfirmation || invController.buildDeleteConfirm)
+)
+
+// Process delete
+router.post(
+  "/delete/",
+  auth.checkEmployee,
+  utilities.handleErrors(invController.deleteInventoryItem)
 )
 
 module.exports = router

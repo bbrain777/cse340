@@ -1,76 +1,112 @@
 // models/account-model.js
-
 const pool = require("../database/")
 
-/* *****************************
- * Return account data using email address
- * ***************************** */
+/* ---------- BASIC LOOKUPS ---------- */
+
 async function getAccountByEmail(account_email) {
   try {
-    const result = await pool.query(
-      "SELECT account_id, account_firstname, account_lastname, account_email, account_type, account_password FROM account WHERE account_email = $1",
-      [account_email]
-    )
-    return result.rows[0]
+    const sql = "SELECT * FROM account WHERE account_email = $1"
+    const data = await pool.query(sql, [account_email])
+    return data.rows[0]
   } catch (error) {
-    console.error("getAccountByEmail error:", error)
-    return null
+    throw error
   }
 }
 
-/* *****************************
- * Return account data using account id
- * ***************************** */
+async function checkExistingEmail(account_email) {
+  try {
+    const sql = "SELECT account_email FROM account WHERE account_email = $1"
+    const email = await pool.query(sql, [account_email])
+    return email.rowCount
+  } catch (error) {
+    throw error
+  }
+}
+
+/* ---------- REGISTRATION ---------- */
+
+async function registerAccount(
+  account_firstname,
+  account_lastname,
+  account_email,
+  account_password
+) {
+  try {
+    const sql =
+      "INSERT INTO account (account_firstname, account_lastname, account_email, account_password) VALUES ($1, $2, $3, $4) RETURNING *"
+    const data = await pool.query(sql, [
+      account_firstname,
+      account_lastname,
+      account_email,
+      account_password,
+    ])
+    return data.rows[0]
+  } catch (error) {
+    throw error
+  }
+}
+
+/* ---------- WEEK 5: ACCOUNT MANAGEMENT ---------- */
+
 async function getAccountById(account_id) {
   try {
-    const result = await pool.query(
-      "SELECT account_id, account_firstname, account_lastname, account_email, account_type FROM account WHERE account_id = $1",
-      [account_id]
-    )
-    return result.rows[0]
+    const sql =
+      "SELECT account_id, account_firstname, account_lastname, account_email, account_type FROM account WHERE account_id = $1"
+    const data = await pool.query(sql, [account_id])
+    return data.rows[0]
   } catch (error) {
-    console.error("getAccountById error:", error)
-    return null
+    throw error
   }
 }
 
-/* *******************************
- * Update account data
- ******************************** */
-async function updateAccount(account_id, firstname, lastname, email) {
+async function updateAccount(
+  account_firstname,
+  account_lastname,
+  account_email,
+  account_id
+) {
   try {
     const sql = `
       UPDATE account
-      SET account_firstname = $1,
-          account_lastname = $2,
-          account_email = $3
-      WHERE account_id = $4
-      RETURNING *;
+      SET
+        account_firstname = $1,
+        account_lastname  = $2,
+        account_email     = $3
+      WHERE account_id   = $4
+      RETURNING account_id, account_firstname, account_lastname, account_email, account_type
     `
     const data = await pool.query(sql, [
-      firstname,
-      lastname,
-      email,
+      account_firstname,
+      account_lastname,
+      account_email,
       account_id,
     ])
     return data.rows[0]
   } catch (error) {
-    console.error("updateAccount error:", error)
-    return null
+    throw error
   }
 }
 
-/* ****************************************
- * Placeholder for registration (Week 4)
- **************************************** */
-async function registerAccount() {
-  // Not required for Week 5 learning activities
-  return null
+async function updatePassword(account_password, account_id) {
+  try {
+    const sql = `
+      UPDATE account
+      SET account_password = $1
+      WHERE account_id = $2
+      RETURNING account_id
+    `
+    const data = await pool.query(sql, [account_password, account_id])
+    return data.rowCount // 1 if success, 0 if fail
+  } catch (error) {
+    throw error
+  }
 }
 
 module.exports = {
   getAccountByEmail,
+  checkExistingEmail,
+  registerAccount,
   getAccountById,
   updateAccount,
-  registerAccount,
+  updatePassword,
 }

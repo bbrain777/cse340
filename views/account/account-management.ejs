@@ -1,0 +1,22 @@
+<%- include("../partials/head") %>
+<%- include("../partials/header") %>
+
+<main class="account-management">
+  <h1>Account Management</h1>
+
+  <% if (message && message.length > 0) { %>
+    <div class="notice"><%= message %></div>
+  <% } %>
+
+  <p>You're logged in as <strong><%= accountData.account_firstname %> <%= accountData.account_lastname %></strong> (<%= accountData.account_email %>).</p>
+
+  <ul class="account-links">
+    <li>
+      <a href="/account/update/<%= accountData.account_id %>">
+        Update Account Information
+      </a>
+    </li>
+  </ul>
+</main>
+
+<%- include("../partials/footer") %>

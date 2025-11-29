@@ -1,11 +1,18 @@
-<header class="site-header">
-  <div class="container header__top">
-    <a href="/" class="brand">CSE Motors</a>
-    <p class="utility">Quality vehicles · Simple pricing</p>
-  </div>
-  <nav class="site-nav" aria-label="Main navigation">
-    <div class="container">
-      <%- typeof nav !== 'undefined' ? nav : '' %>
+<header>
+  <div class="site-bar">
+    <a href="/" class="site-name">CSE Motors</a>
+    <div class="site-tagline">Quality vehicles · Simple pricing</div>
+
+    <div class="account-links">
+      <% if (loggedin && accountData) { %>
+        <span class="welcome-text">
+          Welcome <%= accountData.account_firstname %>
+        </span>
+        <a href="/account/" class="account-link">Account</a>
+        <a href="/account/logout" class="account-link">Logout</a>
+      <% } else { %>
+        <a href="/account/login" class="account-link">My Account</a>
+      <% } %>
     </div>
-  </nav>
+  </div>
 </header>
