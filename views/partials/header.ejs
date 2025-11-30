@@ -1,7 +1,7 @@
-<header>
-  <div class="site-bar">
-    <a href="/" class="site-name">CSE Motors</a>
-    <div class="site-tagline">Quality vehicles · Simple pricing</div>
+<header class="site-header">
+  <div class="container header__top">
+    <div class="brand">CSE Motors</div>
+    <div class="utility">Quality vehicles · Simple pricing</div>
 
     <div class="account-links">
       <% if (loggedin && accountData) { %>
@@ -15,4 +15,18 @@
       <% } %>
     </div>
   </div>
+
+  <nav class="site-nav">
+    <div class="container">
+      <ul class="nav__list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/inv/type/1">Custom</a></li>
+        <li><a href="/inv/type/2">Sedan</a></li>
+        <li><a href="/inv/type/3">SUV</a></li>
+        <li><a href="/inv/type/4">Truck</a></li>
+        <!-- Optional: show Electric too -->
+        <!-- <li><a href="/inv/type/5">Electric</a></li> -->
+      </ul>
+    </div>
+  </nav>
 </header>

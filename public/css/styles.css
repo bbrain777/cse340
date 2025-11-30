@@ -1,4 +1,4 @@
-:root { 
+:root {  
   --bg: #0f172a;
   --bg-alt: #020617;
   --ink: #e5e7eb;
@@ -49,8 +49,11 @@ a:focus-visible {
   padding-inline: 1rem;
 }
 
-/* Header / Nav */
-.site-header {
+/* ======================= */
+/* Header / Navigation     */
+/* ======================= */
+
+header {
   border-bottom: 1px solid rgba(148, 163, 184, 0.25);
   background: rgba(15, 23, 42, 0.95);
   backdrop-filter: blur(12px);
@@ -59,40 +62,50 @@ a:focus-visible {
   z-index: 10;
 }
 
-.header__top {
+/* main bar that holds everything */
+.site-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-block: 0.75rem;
+  gap: 1.5rem;
+  padding: 0.75rem 2rem;
 }
 
-.brand {
+/* logo / site name */
+.site-name {
   font-weight: 700;
   font-size: 1.1rem;
   color: #f9fafb;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
-.utility {
+/* small sub-title under the logo (on larger screens) */
+.site-tagline {
   color: var(--muted);
   font-size: 0.85rem;
+  margin-left: 0.75rem;
+  white-space: nowrap;
 }
 
-.site-nav {
-  border-top: 1px solid rgba(15, 23, 42, 0.9);
-  background: linear-gradient(to right, #020617, #0f172a);
+/* keep name + tagline grouped on the left */
+.site-bar > .site-name,
+.site-bar > .site-tagline {
+  display: inline-block;
 }
 
-.nav__list {
+/* navigation in the middle */
+.site-nav ul {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
   list-style: none;
   margin: 0;
-  padding-block: 0.5rem;
+  padding: 0;
   justify-content: center;
 }
 
-.nav__list a {
+.site-nav a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -101,12 +114,51 @@ a:focus-visible {
   border: 1px solid transparent;
   color: #e5e7eb;
   font-size: 0.9rem;
+  text-decoration: none;
 }
 
-.nav__list a:hover,
-.nav__list a:focus-visible {
+.site-nav a:hover,
+.site-nav a:focus-visible {
   border-color: rgba(34, 197, 94, 0.6);
   background: rgba(15, 23, 42, 0.9);
+}
+
+/* account links on the right */
+.account-links {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.welcome-text {
+  color: var(--muted);
+}
+
+.account-link {
+  color: #e5e7eb;
+  text-decoration: none;
+}
+
+.account-link:hover,
+.account-link:focus-visible {
+  text-decoration: underline;
+}
+
+/* make header stack a bit nicer on very small screens */
+@media (max-width: 768px) {
+  .site-bar {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1rem;
+    padding-inline: 1rem;
+  }
+
+  .site-tagline {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+  }
 }
 
 /* Layout */
