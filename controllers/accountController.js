@@ -24,14 +24,18 @@ async function buildLogin(req, res, next) {
   })
 }
 
-// Registration page
+// Register page
 async function buildRegister(req, res, next) {
   const nav = await utilities.getNav()
+
+  const notice = req.flash("notice")
+  const message = notice && notice.length ? notice[0] : null
+
   res.render("account/register", {
     title: "Register",
     nav,
     errors: null,
-    message: null,
+    message,
   })
 }
 
@@ -55,11 +59,31 @@ async function buildAccountManagement(req, res, next) {
 // Update Account page
 async function buildUpdateAccount(req, res, next) {
   const nav = await utilities.getNav()
-  const account_id = req.params.account_id
+  const loggedInAccount = res.locals.accountData
 
-  const accountData = await accountModel.getAccountById(account_id)
+  // Must be logged in
+  if (!loggedInAccount) {
+    req.flash("notice", "You must be logged in to update an account.")
+    return res.redirect("/account/login")
+  }
 
-  res.render("account/update-account", {
+  const urlId = parseInt(req.params.account_id, 10)
+
+  // Security check: URL id must match the logged-in account id
+  if (isNaN(urlId) || urlId !== loggedInAccount.account_id) {
+    req.flash(
+      "notice",
+      "You can only view and update your own account information."
+    )
+    return res.redirect("/account/")
+  }
+
+  // Always read fresh data from the database using the id from the token
+  const accountData = await accountModel.getAccountById(
+    loggedInAccount.account_id
+  )
+
+  return res.render("account/update-account", {
     title: "Update Account",
     nav,
     errors: null,
@@ -100,8 +124,12 @@ function setAuthCookie(res, token) {
 
 // Handle registration
 async function registerAccount(req, res, next) {
-  const { account_firstname, account_lastname, account_email, account_password } =
-    req.body
+  const {
+    account_firstname,
+    account_lastname,
+    account_email,
+    account_password,
+  } = req.body
 
   const nav = await utilities.getNav()
 
@@ -193,8 +221,16 @@ async function accountLogout(req, res, next) {
 
 async function updateAccount(req, res, next) {
   const nav = await utilities.getNav()
-  const { account_id, account_firstname, account_lastname, account_email } =
-    req.body
+  const loggedInAccount = res.locals.accountData
+
+  // Must be logged in to update
+  if (!loggedInAccount) {
+    req.flash("notice", "You must be logged in to update an account.")
+    return res.redirect("/account/login")
+  }
+
+  const { account_firstname, account_lastname, account_email } = req.body
+  const account_id = loggedInAccount.account_id // Do NOT trust body id
 
   try {
     const updatedAccount = await accountModel.updateAccount(
@@ -217,7 +253,7 @@ async function updateAccount(req, res, next) {
       })
     }
 
-    // Rebuild JWT with updated info
+    // Rebuild JWT with updated info so greetings & header are correct
     const token = buildJWT(updatedAccount)
     setAuthCookie(res, token)
 
@@ -239,7 +275,16 @@ async function updateAccount(req, res, next) {
 }
 
 async function updatePassword(req, res, next) {
-  const { account_id, account_password } = req.body
+  const nav = await utilities.getNav()
+  const loggedInAccount = res.locals.accountData
+
+  if (!loggedInAccount) {
+    req.flash("notice", "You must be logged in to change your password.")
+    return res.redirect("/account/login")
+  }
+
+  const account_id = loggedInAccount.account_id
+  const { account_password } = req.body
 
   try {
     const hashedPassword = await bcrypt.hash(account_password, 10)
@@ -250,15 +295,15 @@ async function updatePassword(req, res, next) {
 
     if (!updateResult) {
       req.flash("notice", "Sorry, the password update failed.")
-    } else {
-      req.flash("notice", "Password updated successfully.")
+      return res.redirect(`/account/update/${account_id}`)
     }
 
+    req.flash("notice", "Password updated successfully.")
     return res.redirect("/account/")
   } catch (error) {
     console.error("Error in updatePassword:", error)
     req.flash("notice", "Sorry, the password update failed.")
-    return res.redirect("/account/")
+    return res.redirect(`/account/update/${account_id}`)
   }
 }
 
