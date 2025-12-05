@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= title %> | CSE Motors</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <%- include("../partials/header") %>
+
+  <main class="container">
+    <h1>Edit Contact & Address Details</h1>
+
+    <% if (errors && errors.length > 0) { %>
+      <section class="notice">
+        <h2>Please fix the following errors:</h2>
+        <ul>
+          <% errors.forEach(function (err) { %>
+            <li><%= err.msg %></li>
+          <% }) %>
+        </ul>
+      </section>
+    <% } %>
+
+    <% if (message && message.length > 0) { %>
+      <p class="notice"><%= message %></p>
+    <% } %>
+
+    <form method="post" action="/profile/edit" class="form">
+      <div class="form-field">
+        <label for="phone">Phone</label>
+        <input
+          type="text"
+          id="phone"
+          name="phone"
+          value="<%= (profile && profile.phone) ? profile.phone : '' %>"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="address">
+          Address <span aria-hidden="true">*</span>
+        </label>
+        <input
+          type="text"
+          id="address"
+          name="address"
+          required
+          value="<%= (profile && profile.address) ? profile.address : '' %>"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="city">
+          City <span aria-hidden="true">*</span>
+        </label>
+        <input
+          type="text"
+          id="city"
+          name="city"
+          required
+          value="<%= (profile && profile.city) ? profile.city : '' %>"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="state">State / Region</label>
+        <input
+          type="text"
+          id="state"
+          name="state"
+          value="<%= (profile && profile.state) ? profile.state : '' %>"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="postcode">Postcode</label>
+        <input
+          type="text"
+          id="postcode"
+          name="postcode"
+          value="<%= (profile && profile.postcode) ? profile.postcode : '' %>"
+        />
+      </div>
+
+      <button type="submit">Save Profile</button>
+    </form>
+  </main>
+
+  <%- include("../partials/footer") %>
+</body>
+</html>

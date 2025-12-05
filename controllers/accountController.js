@@ -42,10 +42,10 @@ async function buildRegister(req, res, next) {
 // Account Management page
 async function buildAccountManagement(req, res, next) {
   const nav = await utilities.getNav()
-  const accountData = res.locals.accountData // set by auth middleware
+  const accountData = res.locals.accountData
 
-  const notice = req.flash("notice")
-  const message = notice && notice.length ? notice[0] : null
+  // The notice was already pulled from flash in server.js
+  const message = res.locals.notice
 
   res.render("account/account-management", {
     title: "Account Management",
